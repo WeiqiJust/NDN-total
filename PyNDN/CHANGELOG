@@ -1,0 +1,89 @@
+Interim changes after PyNDN v2.0beta1 (2014-11-21)
+--------------------------------------------------
+
+Changes
+* Support getter and setter properties in the classes Interest, Data, MetaInfo,
+  KeyLocator and ForwardingFlags, plus the internal ForwardingEntry and
+  ControlParameters.
+* In Name, support slice notation to call getSubName, e.g. name[2:4].
+* Added ChronoSync2013 and test_chrono_chat.py.
+* In Name, added wireEncode and wireDecode.
+* In MetaInfo, added get/setFinalBlockId (replaces the deprecated get/setFinalBlockID).
+* In MemoryContentCache, added unregisterAll.
+* Added ConfigPolicyManager for heirarchical verification using an NDN config file. (Thanks to Adeola Bannis.)
+* In unit tests, added test_name_conventions, test-policy_manager and test_verification_rules.
+* In registerPrefix, use logging.info to log success or the reason for failure.
+* In each __init__.py, added import statements for each module (required by pylint).
+
+Deprecated
+* In MetaInfo, deprecated get/setFinalBlockID. Use get/setFinalBlockId.
+
+PyNDN v2.0beta1 (2014-08-31)
+----------------------------
+
+Changes
+* In Name.appendSegment and appendVersion, encode the number as nonNegativeInteger which is always 1, 2, 4 or 8 bytes.
+  This means that appendSegment(0) now encodes as %00%00 instead of just %00.
+* In Name, added appendSegmentOffset, appendTimestamp and appendSequenceNumber.
+* In Name.Component, added toSegmentOffset, toTimestamp and toSequenceNumber.
+
+Bug fixes
+* http://redmine.named-data.net/issues/1925 Should encode non-negative integers 253 through 255 as one byte.
+* http://redmine.named-data.net/issues/1955 Return the registeredPrefixId from registerPrefix.
+
+PyNDN v2.0alpha3 (2014-08-14)
+-----------------------------
+
+Changes
+* Implemented SelfVerifyPolicyManager for use with KeyChain.verifyData, and use
+  it in the sample test_encode_decode_data.
+* Implemented OSXPrivateKeyStorage to use keys in the OS X Keychain.
+* Performance improvements for Python versions before 3.3.
+* Name: Added methods appendSegment and appendVersion.
+* Name: Added method equals(name) and operators __eq__ and __ne__.
+* Name: Added method compare(other) and operators __lt__, etc.
+* Name: Added a default Name.Component constructor to make a zero-length value.
+* Renamed test_publish_async to test_publish_async_ndnx.
+* Added test-publish-async-nfd.
+* Added ThreadsafeFace which uses asyncio.
+* Added test_get_async_threadsafe 
+* Renamed internal class Tlv1_0a2WireFormat to Tlv0_1WireFormat.
+* COPYING: Changed the license to LGPLv3.
+* In Blob, added __str__ operator.
+* Added encoding.ProtobufTlv for converting a Protobuf message object to TLV encoding.
+* In test_encode_decode_data and test_encode_decode_benchmark, change the RSA test key to 2048 bits.
+* Added UnixTransport. If using the default Face(), try to connect using a Unix socket.
+* Added MemoryContentCache. See http://named-data.net/doc/ndn-ccl-api/memory-content-cache.html .
+* KeyChain: added verifyInterest.
+* Added instructions for building the Sphinx documentation.
+* Added setup.py to support easy_install.  Added instructions in the README file.
+
+Deprecated
+* MemoryPrivateKeyStorage: Deprecated setKeyPairForKeyName without an explicit keyType. Use
+  setKeyPairForKeyName passing the explicit key type such as KeyType.RSA.
+
+Bug fixes
+* http://redmine.named-data.net/issues/1333 Make Interest MustBeFresh default True.
+* http://redmine.named-data.net/issues/1337 Fix FinalBlockID encoding.
+* http://redmine.named-data.net/issues/1647 Trollius 0.3 doesn't import asyncio.
+* For TLV packets over UDP, ignore packets starting with 0x80.
+* Fix bug for encoding/decoding the TLV Interest PublisherPublicKeyLocator.
+* In the Blob constructor, Name.append, etc. treat a Python 2 str as a raw string.
+
+Support to be added soon:
+* Package install support.
+
+PyNDN v2.0alpha2 (2014-02-27)
+-----------------------------
+
+Changes
+* Added UdpTransport in module pyndn.transport to support a UDP connection.
+* In Blob, added method toRawStr and static method fromRawStr.
+
+Bug fixes
+* Fix Interest.setExclude to properly copy the Exclude object.
+
+PyNDN v2.0alpha1 (2014-02-21)
+-----------------------------
+
+This is the Python 2.0 initial release, with support for the NDN-TLV wire format in pure Python.

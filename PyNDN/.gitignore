@@ -1,0 +1,24 @@
+# Python
+*.class
+*.pyc
+
+# Mac OSX
+.DS_Store
+
+# Emacs temp files
+*~
+
+# Eclipse 
+.project
+.pydevproject
+
+# Sphinx output
+doc/_build
+
+# setuptools files
+/dist
+/python/PyNDN.egg-info
+/build
+
+# unit_test temporary files
+tests/unit_tests/policy_config/test-public-info.db
